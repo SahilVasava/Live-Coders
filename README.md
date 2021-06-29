@@ -11,3 +11,4 @@
     - [] figure out what kind of database to use (postgresql | mongodb)
      - [] what kind of models do you need to create
      - [] do i need to store the live stream?
+    - []

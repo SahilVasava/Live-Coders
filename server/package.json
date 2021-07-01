@@ -4,17 +4,23 @@
   "description": "Server for live streaming platform",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node ./index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon --exec babel-node ./index.js"
   },
   "author": "Sahil Vasava",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "express-validator": "^6.12.0",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
-    "node-media-server": "^2.2.8"
+    "nanoid": "^3.1.23",
+    "node-media-server": "^2.2.8",
+    "pg": "^8.6.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.6.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",

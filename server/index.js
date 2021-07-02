@@ -29,6 +29,7 @@ app.use(cors());
 app.use(morgan('tiny'));
 
 
+// Start the RTMP server
 node_media_server.run();
 
 // routes

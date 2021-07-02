@@ -8,6 +8,7 @@ const sequelize = new Sequelize(
     }
 );
 
+
 const User = sequelize.define('User', {
     username: {
         type: DataTypes.STRING,

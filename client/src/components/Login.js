@@ -1,10 +1,14 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../contexts/authContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setIsAuthenticated } = useContext(AuthContext);
+  const history = useHistory();
 
   const handleFormReset = () => {
     setEmail("");
@@ -16,16 +20,22 @@ const Login = () => {
       e.preventDefault();
       console.log(`${email} ${password}`);
       if (email && password) {
-        const result = await axios.post("http://localhost:4000/auth/login", {
+        const { data } = await axios.post("http://localhost:4000/auth/login", {
           email,
           password,
         });
-        console.log(result);
+        handleFormReset();
+        const jwt = data.data.token;
+        if (jwt) {
+          localStorage.setItem("token", jwt);
+          setIsAuthenticated(true);
+          history.push("/");
+        }
       }
     } catch (error) {
+      handleFormReset();
       console.log(error);
     }
-    handleFormReset();
   };
 
   return (

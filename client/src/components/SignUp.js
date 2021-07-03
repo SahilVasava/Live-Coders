@@ -1,18 +1,15 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
+import { AuthContext } from "../contexts/authContext";
+import { useHistory } from "react-router-dom";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
-  useEffect(() => {
-    (async () => {
-      const test = await axios.get("http://localhost:4000/test");
-      console.log(test);
-    })();
-  }, []);
+  const { setIsAuthenticated } = useContext(AuthContext);
 
   const handleFormReset = () => {
     setUsername("");
@@ -21,17 +18,31 @@ const SignUp = () => {
   };
 
   const signUp = async (e) => {
-    e.preventDefault();
-    console.log(`${username} ${email} ${password}`);
-    if (username && email && password) {
-      const result = await axios.post("http://localhost:4000/auth/register", {
-        username,
-        email,
-        password,
-      });
-      console.log(result);
+    try {
+      e.preventDefault();
+      console.log(`${username} ${email} ${password}`);
+      if (username && email && password) {
+        const { data } = await axios.post(
+          "http://localhost:4000/auth/register",
+          {
+            username,
+            email,
+            password,
+          }
+        );
+        handleFormReset();
+        console.log(data);
+        const jwt = data.data.token;
+        if (jwt) {
+          localStorage.setItem("token", jwt);
+          setIsAuthenticated(true);
+          history.push("/");
+        }
+      }
+    } catch (error) {
+      handleFormReset();
+      console.log(error);
     }
-    handleFormReset();
   };
 
   return (

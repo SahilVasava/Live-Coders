@@ -4,7 +4,8 @@
   "description": "Server for live streaming platform",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node ./index.js"
+    "start": "concurrently \"npm run server\" \"cd ../client && npm start\"",
+    "server": "nodemon --exec babel-node ./index.js"
   },
   "author": "Sahil Vasava",
   "license": "ISC",
@@ -27,6 +28,7 @@
     "@babel/core": "^7.14.6",
     "@babel/node": "^7.14.7",
     "@babel/preset-env": "^7.14.7",
+    "concurrently": "^6.2.0",
     "nodemon": "^2.0.7"
   }
 }

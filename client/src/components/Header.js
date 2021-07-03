@@ -1,7 +1,31 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { AuthContext } from "../contexts/authContext";
 
 const Header = () => {
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const history = useHistory();
+  const logout = () => {
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
+    history.push("/");
+  };
+  const authButtons = isAuthenticated ? (
+    <div className="buttons">
+      <button className="button is-link" onClick={logout}>
+        Logout
+      </button>
+    </div>
+  ) : (
+    <div className="buttons">
+      <Link className="button is-primary" to="/signup">
+        <strong>Sign up</strong>
+      </Link>
+      <Link className="button is-link" to="/login">
+        Log in
+      </Link>
+    </div>
+  );
   return (
     <div>
       <nav
@@ -22,16 +46,7 @@ const Header = () => {
           <div className="navbar-start"></div>
 
           <div className="navbar-end">
-            <div className="navbar-item">
-              <div className="buttons">
-                <Link className="button is-primary" to="/signup">
-                  <strong>Sign up</strong>
-                </Link>
-                <Link className="button is-link" to="/login">
-                  Log in
-                </Link>
-              </div>
-            </div>
+            <div className="navbar-item">{authButtons}</div>
           </div>
         </div>
       </nav>

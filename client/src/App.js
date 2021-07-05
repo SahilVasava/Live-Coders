@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
+import Stream from "./components/Stream";
 import { AuthContext } from "./contexts/authContext";
 
 const App = () => {
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="/" exact component={Home} />
           <Route path="/signup" component={SignUp} />
           <Route path="/login" component={Login} />
+          <Route path="/stream/:username" component={Stream} />
         </Switch>
       </Router>
     </div>

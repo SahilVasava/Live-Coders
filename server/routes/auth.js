@@ -1,6 +1,6 @@
 import express from "express";
 import { body } from "express-validator";
-import { register, login } from "../controllers/userController";
+import { register, login, verify } from "../controllers/userController";
 import authorization from "../middleware/jwtAuthorization";
 
 const router = express.Router();
@@ -20,14 +20,7 @@ router.post(
   login
 );
 
-router.post("/verify", authorization, (req, res) => {
-  try {
-    res.json({
-      message: "token is valid",
-      success: true,
-    });
-  } catch (error) {}
-});
+router.post("/verify", authorization, verify);
 
 router.get("/secret", authorization, (req, res) => {
   res.send("authorized");

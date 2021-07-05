@@ -5,7 +5,7 @@
 - [] Frontend
   - [] show all live channels
   - [] a page just for a specific channel
-  - [] after register and login save the jwt token for use
+  - [x] after register and login save the jwt token for use
 - [] Backend
   - [x] functionality to fetch live streaming data from obs or any other streaming software
   - [x] figure out what kind of database to use (`postgresql` | mongodb)
@@ -16,9 +16,11 @@
       - email
       - password
       - streamkey
+      - stream[]
     - stream
       - title
-      - tags
+      - active
+      - user
   - [x] do i need to store the live stream?
     - for now, nope
   - [x] create user authentication functionality

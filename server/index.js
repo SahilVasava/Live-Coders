@@ -6,6 +6,7 @@ import { sequelize } from "./db";
 
 import node_media_server from "./media_server";
 import authRoute from "./routes/auth";
+import streamRoute from "./routes/stream";
 
 const app = express();
 const port = process.env.port || 4000;
@@ -34,6 +35,7 @@ app.use("/test", (req, res) => {
 
 // routes
 app.use("/auth", authRoute);
+app.use("/stream", streamRoute);
 
 app.listen(port, () => {
   console.log(`App listening on ${port}!`);

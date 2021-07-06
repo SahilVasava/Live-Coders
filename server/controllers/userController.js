@@ -1,4 +1,4 @@
-import { User } from "../db";
+import { Stream, User } from "../db";
 import bcrypt from "bcrypt";
 import { jwtGenerator } from "../utils/jwtGenerator";
 import { validationResult } from "express-validator";
@@ -47,7 +47,11 @@ export const register = async (req, res) => {
       stream_key,
     });
 
+    // Create a stream
+    const stream = await Stream.create({ UserId: user.id });
+
     console.log(user.toJSON());
+    console.log(stream.toJSON());
 
     // Generate a jwt token
     const token = jwtGenerator(user.id);

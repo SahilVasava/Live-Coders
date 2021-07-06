@@ -9,9 +9,14 @@ const config = {
     },
     http: {
       port: 8000,
-      mediaroot: "./server/media",
+      mediaroot: "./rtmp_server/media",
       allow_origin: "*",
     },
+    //auth: {
+    //  play: true,
+    //  publish: true,
+    //  secret: "secretkey",
+    //},
     trans: {
       ffmpeg: "/usr/bin/ffmpeg",
       tasks: [

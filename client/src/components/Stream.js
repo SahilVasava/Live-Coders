@@ -2,11 +2,12 @@ import React from "react";
 import videojs from "video.js";
 import { useVideoJS } from "../hooks/useVideojs";
 
-const Stream = () => {
+const Stream = (props) => {
+  const { username } = props.match.params;
   const { Video } = useVideoJS({
     sources: [
       {
-        src: "http://localhost:8000/live/st5FoZJUToISjQifslPqt/index.m3u8",
+        src: `http://localhost:8000/live/${username}/index.m3u8`,
         type: "application/x-mpegURL",
       },
     ],
@@ -14,6 +15,7 @@ const Stream = () => {
     playbackRates: [0.5, 1, 1.5, 2],
     responsive: true,
     fluid: true,
+    autoplay: true,
   });
   return (
     <div className="section">

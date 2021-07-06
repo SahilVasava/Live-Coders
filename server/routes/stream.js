@@ -4,6 +4,6 @@ import authorization from "../middleware/jwtAuthorization";
 
 const router = express.Router();
 
-router.get("/info", authorization, streamInfo);
+router.post("/info", authorization, streamInfo);
 
 export default router;

@@ -1,5 +1,4 @@
 import React from "react";
-import videojs from "video.js";
 import { useVideoJS } from "../hooks/useVideojs";
 
 const Stream = (props) => {

@@ -3,10 +3,12 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import { sequelize } from "./db";
+import path from "path";
 
 import node_media_server from "./media_server";
 import authRoute from "./routes/auth";
 import streamRoute from "./routes/stream";
+import { thumbnailGeneratorJob } from "./cron/thumbnails";
 
 const app = express();
 const port = process.env.port || 4000;
@@ -29,6 +31,9 @@ app.use(morgan("tiny"));
 // Start the RTMP server
 node_media_server.run();
 
+// Start the thumbnail generator cron job
+thumbnailGeneratorJob.start();
+
 app.use("/test", (req, res) => {
   res.send("hey");
 });
@@ -36,6 +41,8 @@ app.use("/test", (req, res) => {
 // routes
 app.use("/auth", authRoute);
 app.use("/stream", streamRoute);
+
+app.use("/thumbnails", express.static(path.join(__dirname, "thumbnails")));
 
 app.listen(port, () => {
   console.log(`App listening on ${port}!`);

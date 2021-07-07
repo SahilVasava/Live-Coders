@@ -1,7 +1,10 @@
 import node_media_server from "node-media-server";
 import config from "./config/default";
 import { User } from "./db";
-import { generateStreamThumbnail } from "./utils/streamHelpers";
+import {
+  generateStreamThumbnail,
+  removeThumbnail,
+} from "./utils/streamHelpers";
 
 const nms = new node_media_server(config.rtmp_server);
 
@@ -35,7 +38,7 @@ nms.on("prePublish", async (id, StreamPath, args) => {
       console.log(`stream ${stream}`);
       stream.active = true;
       await stream.save();
-      // generateStreamThumbnail(user.username);
+      generateStreamThumbnail(user.username);
     }
   } catch (error) {
     console.log(error);
@@ -66,6 +69,7 @@ nms.on("donePublish", async (id, StreamPath, args) => {
       console.log(`stream ${stream}`);
       stream.active = false;
       await stream.save();
+      await removeThumbnail(username);
     }
   } catch (error) {
     console.log(error);

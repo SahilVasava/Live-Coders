@@ -8,7 +8,7 @@ const Home = () => {
   const getLiveStreams = async () => {
     try {
       const { data } = await axios.get("http://localhost:8000/api/streams");
-      if (data["live"] !== undefined) {
+      if (typeof data["live"] !== undefined) {
         const { data: streamData } = await api.post(
           "http://localhost:4000/stream/info",
           {

@@ -12,7 +12,10 @@ const StreamBlock = (props) => {
         <div className="card">
           <div className="card-image">
             <figure className="image is-16by9">
-              <img src="https://placeimg.com/640/360/tech" />
+              <img
+                src={`http://localhost:4000/thumbnails/${username}.png`}
+                alt=""
+              />
             </figure>
           </div>
           <div className="card-content">

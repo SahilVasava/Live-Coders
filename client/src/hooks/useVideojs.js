@@ -11,7 +11,7 @@ export const useVideoJS = (videoJsOptions) => {
     return () => {
       player.current.dispose();
     };
-  }, [videoJsOptions.changedKey]);
+  }, [videoJsOptions]);
 
   const Video = useCallback(
     ({ children, ...props }) => {

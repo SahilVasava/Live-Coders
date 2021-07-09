@@ -8,7 +8,7 @@ const Home = () => {
   const getLiveStreams = async () => {
     try {
       const { data } = await axios.get("http://localhost:8000/api/streams");
-      if (typeof data["live"] !== undefined) {
+      if (data["live"] !== undefined) {
         const { data: streamData } = await api.post(
           "http://localhost:4000/stream/info",
           {
@@ -21,7 +21,6 @@ const Home = () => {
         }
         console.log(streamData);
       }
-      console.log(data["live"]);
     } catch (error) {
       console.log(error);
     }
@@ -34,6 +33,9 @@ const Home = () => {
     <div className="section">
       <div className="container">
         <div className="columns is-multiline">
+          {streams.length === 0 && (
+            <h5 className="subtitle">No one is streaming yet...</h5>
+          )}
           {streams.map((stream) => (
             <StreamBlock key={stream.Stream.id} stream={stream} />
           ))}

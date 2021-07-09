@@ -50,6 +50,9 @@ const User = sequelize.define(
       afterCreate: async (user, options) => {
         await user.reload();
       },
+      afterUpdate: async (user, options) => {
+        await user.reload();
+      },
     },
   }
 );

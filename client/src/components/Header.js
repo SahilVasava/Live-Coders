@@ -1,15 +1,22 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../contexts/authContext";
+import useClickedOutside from "../hooks/useClickedOutside";
 
 const Header = () => {
-  const [menu, setMenu] = useState(false);
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const history = useHistory();
+  const { ref, isClickedOutside } = useClickedOutside(true);
+  const [menu, setMenu] = useState(false);
 
-  //const handleMenuToggle = ()=> {
-  //  setMenu(!menu);
-  //}
+  const handleMenuToggle = () => {
+    setMenu(!menu);
+  };
+  useEffect(() => {
+    if (isClickedOutside) {
+      setMenu(false);
+    }
+  }, [isClickedOutside]);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -49,15 +56,16 @@ const Header = () => {
           </Link>
         </div>
 
-        <div id="navbarBasicExample" className="navbar-menu">
+        <div className="navbar-menu is-active">
           <div className="navbar-start"></div>
 
           <div className="navbar-end">
             <div className="navbar-item">{authButtons}</div>
             <div
               className={`navbar-item has-dropdown ${menu ? "is-active" : ""}`}
+              ref={ref}
             >
-              <a className="navbar-link" onClick={() => setMenu(!menu)}>
+              <a className="navbar-link" onClick={handleMenuToggle}>
                 <figure className="image  is-32x32">
                   <img
                     className="is-rounded"
@@ -71,7 +79,11 @@ const Header = () => {
                 </figure>
               </a>
               <div className="navbar-dropdown">
-                <Link className="navbar-item" to="/settings">
+                <Link
+                  className="navbar-item"
+                  to="/settings"
+                  onClick={handleMenuToggle}
+                >
                   Settings
                 </Link>
               </div>

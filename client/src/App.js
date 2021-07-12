@@ -5,38 +5,12 @@ import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Login from "./components/Login";
+import PrivateRoute from "./PrivateRoute";
 import Settings from "./components/Settings";
 import SignUp from "./components/SignUp";
 import Stream from "./components/Stream";
-import { AuthContext } from "./contexts/authContext";
 
 const App = () => {
-  const { setIsAuthenticated } = useContext(AuthContext);
-
-  const checkAuthenticated = useCallback(async () => {
-    try {
-      const token = localStorage.getItem("token");
-      console.log(token);
-      if (token) {
-        const { data } = await axios({
-          method: "POST",
-          url: "http://localhost:4000/auth/verify",
-          headers: { token },
-        });
-        console.log(data);
-        setIsAuthenticated(data.success);
-      } else {
-        setIsAuthenticated(false);
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  }, [setIsAuthenticated]);
-
-  useEffect(() => {
-    checkAuthenticated();
-  }, [checkAuthenticated]);
-
   return (
     <div className="App">
       <Router>
@@ -45,7 +19,7 @@ const App = () => {
           <Route path="/" exact component={Home} />
           <Route path="/signup" component={SignUp} />
           <Route path="/login" component={Login} />
-          <Route path="/settings" component={Settings} />
+          <PrivateRoute path="/settings" component={Settings} exact />
           <Route path="/stream/:username" component={Stream} />
         </Switch>
       </Router>

@@ -106,7 +106,7 @@ export const login = async (req, res) => {
 
     // Generate a jwt token
     const token = jwtGenerator(user.id);
-
+    console.log(token);
     res.json({
       message: "User logged in",
       data: { token, user: user.toJSON() },

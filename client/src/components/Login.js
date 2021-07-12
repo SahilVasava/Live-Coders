@@ -25,9 +25,11 @@ const Login = () => {
           password,
         });
         handleFormReset();
-        const jwt = data.data.token;
-        if (jwt) {
-          localStorage.setItem("token", jwt);
+        console.log(data);
+        const { token, exp } = data.data.token;
+        if (token) {
+          localStorage.setItem("token", token);
+          localStorage.setItem("token_exp", exp);
           setIsAuthenticated(true);
           history.push("/");
         }

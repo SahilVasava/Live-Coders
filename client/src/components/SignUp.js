@@ -32,9 +32,11 @@ const SignUp = () => {
         );
         handleFormReset();
         console.log(data);
-        const jwt = data.data.token;
-        if (jwt) {
-          localStorage.setItem("token", jwt);
+        //const jwt = data.data.token;
+        const { token, exp } = data.data.token;
+        if (token) {
+          localStorage.setItem("token", token);
+          localStorage.setItem("token_exp", exp);
           setIsAuthenticated(true);
           history.push("/");
         }

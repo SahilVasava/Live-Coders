@@ -20,6 +20,7 @@ const Header = () => {
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("token_exp");
     setIsAuthenticated(false);
     history.push("/");
   };
@@ -57,38 +58,39 @@ const Header = () => {
         </div>
 
         <div className="navbar-menu is-active">
-          <div className="navbar-start"></div>
-
           <div className="navbar-end">
             <div className="navbar-item">{authButtons}</div>
-            <div
-              className={`navbar-item has-dropdown ${menu ? "is-active" : ""}`}
-              ref={ref}
-            >
-              <a className="navbar-link" onClick={handleMenuToggle}>
-                <figure className="image  is-32x32">
-                  <img
-                    className="is-rounded"
-                    //src="https://picsum.photos/200"
-                    src="https://static-cdn.jtvnw.net/jtv_user_pictures/1834c04a-6ebf-4f4b-bb9e-e0301f775e88-profile_image-70x70.png"
-                    // width="28"
-                    // height="28"
-                    alt="Bulma"
-                    style={{ maxHeight: "none" }}
-                  />
-                </figure>
-              </a>
-              <div className="navbar-dropdown">
-                <Link
-                  className="navbar-item"
-                  to="/settings"
-                  onClick={handleMenuToggle}
-                >
-                  Settings
-                </Link>
+            {isAuthenticated && (
+              <div
+                className={`navbar-item has-dropdown ${
+                  menu ? "is-active" : ""
+                }`}
+                ref={ref}
+              >
+                <a className="navbar-link" onClick={handleMenuToggle}>
+                  <figure className="image  is-32x32">
+                    <img
+                      className="is-rounded"
+                      //src="https://picsum.photos/200"
+                      src="https://static-cdn.jtvnw.net/jtv_user_pictures/1834c04a-6ebf-4f4b-bb9e-e0301f775e88-profile_image-70x70.png"
+                      // width="28"
+                      // height="28"
+                      alt="Bulma"
+                      style={{ maxHeight: "none" }}
+                    />
+                  </figure>
+                </a>
+                <div className="navbar-dropdown">
+                  <Link
+                    className="navbar-item"
+                    to="/settings"
+                    onClick={handleMenuToggle}
+                  >
+                    Settings
+                  </Link>
+                </div>
               </div>
-            </div>
-            <div className="navbar-menu"></div>
+            )}
           </div>
         </div>
       </nav>

@@ -129,3 +129,15 @@ export const verify = (req, res) => {
     res.status(500).json({ message: "Internal Server Error", success: false });
   }
 };
+
+export const uploadAvatar = (req, res) => {
+  try {
+    res.json({
+      message: "imageeeee",
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error", success: false });
+  }
+};

@@ -35,6 +35,9 @@ const User = sequelize.define(
     stream_key: {
       type: DataTypes.STRING,
     },
+    avatar: {
+      type: DataTypes.JSONB,
+    },
   },
   {
     tableName: "users",

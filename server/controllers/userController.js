@@ -130,10 +130,55 @@ export const verify = (req, res) => {
   }
 };
 
-export const uploadAvatar = (req, res) => {
+export const getUser = async (req, res) => {
   try {
+    const { user: userId } = req;
+    const user = await User.findOne({
+      where: {
+        id: userId,
+      },
+    });
+    if (!user) {
+      return res.status(401).json({
+        message: "Incorrect credentials",
+        success: false,
+      });
+    }
+
+    console.log(user);
+
     res.json({
-      message: "imageeeee",
+      message: "User details",
+      data: user,
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error", success: false });
+  }
+};
+
+export const uploadAvatar = async (req, res) => {
+  try {
+    console.log(req.file);
+    const { user: userId } = req;
+
+    const user = await User.findOne({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!user) {
+      return res.status(401).json({
+        message: "Incorrect credentials",
+        success: false,
+      });
+    }
+    user.avatar = req.file.path;
+    await user.save();
+    res.json({
+      message: "Image updated",
       success: true,
     });
   } catch (error) {

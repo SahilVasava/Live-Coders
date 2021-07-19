@@ -1,7 +1,11 @@
 import express from "express";
-import { uploadAvatar } from "../controllers/userController";
+import { getUser, uploadAvatar } from "../controllers/userController";
 import jwtAuthorization from "../middleware/jwtAuthorization";
+import { parser } from "../utils/cloudinary";
 
 const router = express.Router();
 
-router.post("/avatar", jwtAuthorization, uploadAvatar);
+router.get("/", jwtAuthorization, getUser);
+router.post("/avatar", jwtAuthorization, parser.single("image"), uploadAvatar);
+
+export default router;

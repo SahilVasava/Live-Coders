@@ -3,11 +3,13 @@ import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../contexts/authContext";
+import { UserContext } from "../contexts/userContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setIsAuthenticated } = useContext(AuthContext);
+  const { setUser } = useContext(UserContext);
   const history = useHistory();
 
   const handleFormReset = () => {
@@ -20,17 +22,23 @@ const Login = () => {
       e.preventDefault();
       console.log(`${email} ${password}`);
       if (email && password) {
-        const { data } = await axios.post("http://localhost:4000/auth/login", {
+        const {
+          data: {
+            data: { user, token },
+          },
+        } = await axios.post("http://localhost:4000/auth/login", {
           email,
           password,
         });
         handleFormReset();
-        console.log(data);
-        const { token, exp } = data.data.token;
-        if (token) {
-          localStorage.setItem("token", token);
-          localStorage.setItem("token_exp", exp);
+        console.log(user);
+        console.log(token);
+        //const { token, exp } = token;
+        if (token && user) {
+          localStorage.setItem("token", token.token);
+          localStorage.setItem("token_exp", token.exp);
           setIsAuthenticated(true);
+          setUser(user);
           history.push("/");
         }
       }

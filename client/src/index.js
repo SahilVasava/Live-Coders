@@ -5,11 +5,14 @@ import App from "./App";
 import AuthContextProvider from "./contexts/authContext";
 
 import "bulma/css/bulma.min.css";
+import UserContextProvider from "./contexts/userContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <App />
+      <UserContextProvider>
+        <App />
+      </UserContextProvider>
     </AuthContextProvider>
   </React.StrictMode>,
   document.getElementById("root")

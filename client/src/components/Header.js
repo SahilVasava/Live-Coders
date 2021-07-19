@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../contexts/authContext";
+import { UserContext } from "../contexts/userContext";
 import useClickedOutside from "../hooks/useClickedOutside";
 
 const Header = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const { user } = useContext(UserContext);
   const history = useHistory();
   const { ref, isClickedOutside } = useClickedOutside(true);
   const [menu, setMenu] = useState(false);
@@ -111,11 +113,15 @@ const Header = () => {
                       <img
                         className="is-rounded"
                         //src="https://picsum.photos/200"
-                        src="https://static-cdn.jtvnw.net/jtv_user_pictures/1834c04a-6ebf-4f4b-bb9e-e0301f775e88-profile_image-70x70.png"
+
+                        src={
+                          user.avatar ||
+                          "https://res.cloudinary.com/image-dumpd/image/upload/v1626689360/live-coders/user_fk0mbf.png"
+                        }
                         // width="28"
                         // height="28"
                         alt="Bulma"
-                        style={{ maxHeight: "none" }}
+                        style={{ maxHeight: "none", height: "inherit" }}
                       />
                     </figure>
                   </a>

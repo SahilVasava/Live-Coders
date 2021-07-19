@@ -12,7 +12,7 @@ export const streamInfoAll = async (req, res) => {
     }
     const { streams } = req.body;
     const results = await User.findAll({
-      attributes: ["id", "username"],
+      attributes: ["id", "username", "avatar"],
       where: {
         username: streams,
       },

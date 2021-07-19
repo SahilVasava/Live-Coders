@@ -1,5 +1,3 @@
-import axios from "axios";
-import { useCallback, useContext, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";

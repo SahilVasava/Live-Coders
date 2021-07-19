@@ -1,9 +1,14 @@
 import axios from "axios";
 
-const token = localStorage.getItem("token") || "";
+const instance = axios.create({});
 
-const instance = axios.create({
-  headers: { token },
-});
+instance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token") || "";
+    if (token) config.headers["token"] = token;
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 export default instance;

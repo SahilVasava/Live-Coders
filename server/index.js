@@ -8,6 +8,7 @@ import path from "path";
 import node_media_server from "./media_server";
 import authRoute from "./routes/auth";
 import streamRoute from "./routes/stream";
+import userRoute from "./routes/user";
 import { thumbnailGeneratorJob } from "./cron/thumbnails";
 
 const app = express();
@@ -41,6 +42,7 @@ app.use("/test", (req, res) => {
 // routes
 app.use("/auth", authRoute);
 app.use("/stream", streamRoute);
+app.use("/user", userRoute);
 
 app.use("/thumbnails", express.static(path.join(__dirname, "thumbnails")));
 

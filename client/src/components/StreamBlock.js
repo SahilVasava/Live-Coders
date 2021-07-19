@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 const StreamBlock = (props) => {
   const {
     username,
+    avatar,
     Stream: { title },
   } = props.stream;
+
   return (
     <div className="column is-3">
       <Link to={`/stream/${username}`}>
@@ -19,9 +21,28 @@ const StreamBlock = (props) => {
             </figure>
           </div>
           <div className="card-content">
-            <div className="media-content">
-              <p className="title is-6">{title}</p>
-              <p className="subtitle is-7">{username}</p>
+            <div className="media">
+              <div className="media-left">
+                <figure className="image  is-32x32">
+                  <img
+                    className="is-rounded"
+                    //src="https://picsum.photos/200"
+
+                    src={
+                      avatar ||
+                      "https://res.cloudinary.com/image-dumpd/image/upload/v1626689360/live-coders/user_fk0mbf.png"
+                    }
+                    // width="28"
+                    // height="28"
+                    alt="Bulma"
+                    style={{ maxHeight: "none", height: "inherit" }}
+                  />
+                </figure>
+              </div>
+              <div className="media-content">
+                <p className="title is-6">{title}</p>
+                <p className="subtitle is-7">{username}</p>
+              </div>
             </div>
           </div>
         </div>
